@@ -40,6 +40,7 @@ def index():
 
 @app.route("/site-map")
 def site_map():
+    return str(request.cookies)
     links = []
     for rule in app.url_map.iter_rules():
         links.append(rule.endpoint + ' ' + str(rule))
