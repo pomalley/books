@@ -7,8 +7,8 @@ The book model & view.
 import datetime, requests, feedparser, simplejson
 import wtforms, wtforms.validators as validators
 from flask import url_for, redirect, flash
-from books import app, connection
-import model
+from books import connection
+import model, view_helpers
 
 worldcat_url = "http://worldcat.org/webservices/catalog/search/opensearch"
 worldcat_keys = ['author', 'author_detail', 'authors', 'dc_identifier',
@@ -30,6 +30,7 @@ class Book(model.Model):
     __collection__ = 'books'
     __database__ = 'books'
     use_schemaless=True
+    view_decorators = [view_helpers.login_required]
 
     structure = {
         'title': unicode,

@@ -1,17 +1,11 @@
-import functools, urllib
+import urllib
 
 from flask import abort, g, render_template, url_for, session, flash, redirect, request, make_response
 
-from flask.ext.classy import route
-from flask_wtf import Form
-import wtforms, wtforms.validators as validators
-
-from books import app, auth
+from books import app
 from book import Book
-
-class LoginForm(Form):
-    username = wtforms.TextField('Username', validators=[validators.Required()])
-    password = wtforms.PasswordField("Password", validators=[validators.Required()])
+from view_helpers import login_required
+import auth
 
 #---- the routes ----#
 
@@ -23,24 +17,15 @@ def check_login():
     except KeyError:
         g.user = None
 
-def login_required(f):
-    @functools.wraps(f)
-    def func(*args, **kwargs):
-        if g.get('user', None) is None:
-            return redirect(url_for('login', next=request.url))
-        return f(*args, **kwargs)
-    return func
-
 
 # "static" routes here. see book module for routes based on books
 @app.route('/')
-@login_required
 def index():
     return render_template("index.html")
 
 @app.route("/site-map")
+@login_required
 def site_map():
-    return str(request.cookies)
     links = []
     for rule in app.url_map.iter_rules():
         links.append(rule.endpoint + ' ' + str(rule))

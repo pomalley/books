@@ -89,6 +89,8 @@ class Model(mongokit.Document):
     default_on_save = ['date_updated']
     form_fields = {}
 
+    view_decorators = []
+
     def __repr__(self):
         return "<%s %r>" % (self.__class__.__name__, self.title)
 
@@ -128,6 +130,7 @@ class Model(mongokit.Document):
         name = cls.__name__
         viewName = name + "View"    # must == viewName method above
         class MyView(FlaskView):
+            decorators = cls.view_decorators
             def index(self):
                 doclist = getattr(connection, name).find()
                 return render_template(name + '/index.html',
