@@ -242,7 +242,7 @@ class Book(model.Model):
             else:
                 first, _, last = a.rpartition(' ')
                 names.append('%s, %s' % (last, first))
-        return ';'.join(names)
+        return unicode(';'.join(names))
 
     def save(self, *args, **kwargs):
         # update the author string

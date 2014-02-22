@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% import "Book/forms.html" as forms %}
 
 {% block title %}{{ doc['title'] }}{% endblock %}
 
@@ -21,5 +22,5 @@
     <p><a href="{{ doc.url_for() }}">[view this entry]</a></p>
     <p><a href="{{ doc.url_for('get_info') }}">[get info for this entry]</a></p>
     <p><a href="{{ doc.url_for('edit') }}">[edit this entry]</a></p>
-    <p><a href="{{ doc.url_for('getdelete') }}">[delete this entry]</a></p>
+    <p>{{ forms.delete_form(doc.delete_form()) }}</p>
 {% endblock %}
