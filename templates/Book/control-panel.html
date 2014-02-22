@@ -1,0 +1,31 @@
+{# a panel of buttons for a book that the user will frequently change
+    (i.e. as opposed to title, author, etc that remains constant
+#}
+
+{% set url = url | default(doc.url_for('control_panel')) %}
+{% set show_full_link = show_full_link | default(True) %}
+
+<form action="{{ url }}" method="POST">
+<table class="control-panel">
+  {{ form.hidden_tag() }}
+  {% for f in form if f.widget.input_type != 'hidden' %}
+    <tr>
+    <td class="checklabel">{{ f.label() }}</td>
+    <td>{{ f(class_="form-control %s" % f.name) }}</td>
+    <td>
+    {% if f.errors %}
+      {% for e in f.errors %}
+        <span class="form-error">{{ e }}</span>
+      {% endfor %}
+    {% endif %}
+    </td>
+    </tr>
+  {% endfor %}
+  <tr><td colspan=2 class="submit"><input type="submit" value="Go"></td></tr>
+  {% if show_full_link %}
+  <tr><td colspan=2 class="submit">
+      <a href="{{doc.url_for('update')}}">[full panel]</a>
+  </td></tr>
+  {% endif %}
+</table>
+</form>

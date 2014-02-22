@@ -1,0 +1,15 @@
+{% if 'imageLinks' in v %}
+<img src="{{ v['imageLinks']['thumbnail'] }}" alt="book cover" width=128 height=193 class="book-cover">
+{% else %}
+<img src="{{ url_for('static', filename='no_cover.png') }}" alt="no cover image" width=128 height=193 class="book-cover">
+{% endif %}
+<p>
+  {{ v['title'] }}{% if v['subtitle'] %}: {{v['subtitle']}}.{% endif %}
+</p>
+<p>{{ v['authors']|join(', ') }}</p>
+{% if 'publishedDate' in v and v['publishedDate'].__len__() > 3 %}
+<p>{{ v['publishedDate'][0:4] }}</p>
+{% else %}
+<p></p>
+{% endif %}
+<p><a href="{{v['infoLink']}}" target="google books">[google books]</a></p>

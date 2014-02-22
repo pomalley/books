@@ -1,0 +1,144 @@
+/* basic style sheet for the books app thingy. */
+
+$med-brown: #EC8;
+$dark-brown: #CA5;
+$light-brown: #ED9;
+
+body {
+    margin: 0;
+    padding: 0;
+    background: $med-brown;
+}
+
+#sidebar {
+    /*border: 1px solid black;*/
+    padding: 5px 5px 5px 15px;
+    ul {
+        padding: 0;
+        margin: 0;
+    }
+    li {
+        list-style: none;
+        a {
+            margin: 3px 10px;
+            padding: 0px 10px;
+            display: block;
+            font-weight: bold;
+            text-decoration: none;
+            color: #000;
+            background: $dark-brown;
+        }
+    }
+}
+
+.user-info {
+    margin: 10px 10px;
+    padding: 5px 5px 5px 15px;
+    background: $dark-brown;
+    font-weight: bold;
+    color: black;
+}
+
+.flash {
+    margin: 10px 10px;
+    padding: 5px 5px 5px 15px;
+    background: $light-brown;
+    font-weight: bold;
+    color: navy;
+}
+
+/* generic */
+td.submit {
+    text-align: center;
+}
+
+input[type=submit] {
+    width: 50%;
+}
+
+.form-error {
+    color: #F00;
+    font-weight: bold;
+}
+
+/* index page */
+.table-striped tbody > tr:nth-child(odd) > td,
+.table-striped tbody > tr:nth-child(odd) > th
+{
+  background-color: $dark-brown;
+}
+.table-hover tbody tr.no-hover:hover td {
+  background-color: initial;
+}
+.table-hover tbody tr:hover td {
+  background-color: $light-brown;
+}
+.checkbox-cell {
+  text-align: center;
+  input {
+    width: 100%;
+  }
+}
+.table {
+    a {
+        /*color: blue;*/
+        font-weight: bold;
+    }
+    /* apparently this is the selector needed to override bootstrap's */
+    tbody>tr>th.checkbox-cell {
+        vertical-align: bottom;
+    }
+    tr>td {
+        border-bottom: 1px solid #DDDDDD;
+    }
+}
+
+
+/* get page */
+table.book-table {
+    border-collapse: collapse;
+}
+
+.book-table td {
+    border: 1px solid black;
+    padding: 2px 5px;
+}
+
+/* control panel */
+.checklabel {
+    text-align: right;
+    label {
+        width: 100%;
+        margin-bottom: 0;
+    }
+}
+
+.control-panel {
+    /*border: 1px dashed white;*/
+    background: $light-brown;
+    margin: 5px;
+    border-spacing: 5px 0px;
+    border-collapse: separate;
+    input {
+        margin: 0px;
+    }
+}
+
+/* get_info page */
+.info-entry {
+    background: $dark-brown;
+    /*border: 1px solid black;*/
+    margin: 10px;
+    padding: 10px;
+    p {
+        margin: 0;
+    }
+    img {
+        float: left;
+        border: 1px solid black;
+        margin: 3px;
+    }
+    input[type=submit] {
+        width: auto;
+    }
+}

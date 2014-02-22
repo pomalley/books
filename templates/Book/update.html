@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ doc['title'] }}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+      <div class="col-md-2">
+
+      </div>
+      <div class="col-md-8">
+        <h3>{{ doc.get_citation()|safe }}</h3>
+      </div>
+
+    </div>
+    <div class="row">
+      {% set show_full_link = False %}
+      {% include "Book/control-panel.html" %}
+    </div>
+
+    <p><a href="{{ doc.url_for() }}">[view this entry]</a></p>
+    <p><a href="{{ doc.url_for('get_info') }}">[get info for this entry]</a></p>
+    <p><a href="{{ doc.url_for('edit') }}">[edit this entry]</a></p>
+    <p><a href="{{ doc.url_for('getdelete') }}">[delete this entry]</a></p>
+{% endblock %}

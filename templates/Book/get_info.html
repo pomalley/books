@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% import "Book/forms.html" as forms %}
+
+{% block title %}{{ doc['title'] }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+      <h3>{{ doc['title'] }}</h3>
+    </div>
+    <!--
+    {% for e in doc.worldcat_entries %}
+    <div class="row">
+        <div class="col-md-8 info-entry">
+          {{ e['summary']|safe }}
+          <a href="{{ e['link'] }}" target="Worldcat">[Worldcat link]</a>
+          <a href="{{ doc.url_for('set_info', idx=loop.index0) }}">[use this entry]</a>
+        </div>
+    </div>
+    {% endfor %}
+    -->
+    {% for v in doc.google_volumes %}
+    <div class="row">
+      <div class="col-md-8 info-entry">
+        {% include 'Book/google-volume.html' %}
+        {{ set_info_form(loop.index0) }}
+      </div>
+    </div>
+    {% endfor %}
+    <div class="row">
+    <p><a href="{{ doc.url_for('get') }}">[view this entry]</a></p>
+    <p><a href="{{ doc.url_for('edit') }}">[edit this entry]</a></p>
+    <p>{{ forms.delete_form(doc.delete_form()) }}</p>
+    </div>
+{% endblock %}
+
+{% macro set_info_form(idx) -%}
+<form method="POST" action="{{ doc.url_for('set_info') }}">
+<input type="hidden" name="idx" value="{{idx}}">
+<input type="submit" value="[use this entry]">
+</form>
+{%- endmacro %}
+

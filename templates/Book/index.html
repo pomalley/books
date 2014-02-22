@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}All the books{% endblock %}
+
+{% block content %}
+    <form method="POST" action="{{ url }}">
+    <table class="table table-striped table-hover index-table">
+    <tr class="no-hover">
+      <th>
+        <h3>Your books:</h3>
+        {{ form.hidden_tag() }}
+      </th>
+      {% for f in form.subforms[0] if f.widget.input_type != 'hidden' %}
+      <th class="checkbox-cell">
+        {{ f.label() }}
+      </th>
+      {% endfor %}
+    </tr>
+    {% for book, subform in zip(doclist, form.subforms) %}
+    <tr>
+      <td>
+        <a href="{{ url_for('BookView:get', id=book['_id']) }}">
+            {{ book.get_citation()|safe }}
+        </a>
+        {{ subform.hidden_tag() }}
+      </td>
+      {% for f in subform if f.widget.input_type != 'hidden' %}
+      <td class="checkbox-cell">
+        {{ f() }}
+      </td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+    <tr class="no-hover">
+      <td></td>
+      <td colspan="99" class="submit"><input type="submit" value="Update"></td>
+    </tr>
+    </table></form>
+{% endblock %}
+

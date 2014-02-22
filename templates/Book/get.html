@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% import "Book/forms.html" as forms %}
+
+{% block title %}{{ doc['title'] }}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+      <div class="col-md-2">
+        {% include "Book/control-panel.html" %}
+      </div>
+      <div class="col-md-8">
+        <h3>{{ doc.get_citation()|safe }}</h3>
+      </div>
+
+    </div>
+    <table class="book-table">
+    {% for k in doc.field_order %}
+    <tr>
+        <td>{{ doc.label_for(k) }}</td><td>{{ doc[k] }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+
+    <p><a href="{{ doc.url_for('get_info') }}">[get info for this entry]</a></p>
+    <p><a href="{{ doc.url_for('edit') }}">[edit this entry]</a></p>
+    <p>{{ forms.delete_form(doc.delete_form()) }}</p>
+{% endblock %}

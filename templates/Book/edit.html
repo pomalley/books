@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ doc['title'] }}{% endblock %}
+
+{% block content %}
+    <h3>{% if doc['title'] %}
+            {{ doc['title'] }}
+        {% else %}
+            [Untitled]
+        {% endif %}
+    </h3>
+    <form method="POST" action="{{ action }}">
+        <table>
+        <tr><td colspan=2 class="submit">
+            <input type="submit" name="btn" value="Commit changes">
+        </td></tr>
+        {% for f in form %}
+          {{ render_field(f) }}
+        {% endfor %}
+        <tr><td colspan=2 class="submit">
+            <input type="submit" name="btn" value="Commit changes">
+        </td></tr>
+        </table>
+
+    </form>
+{% endblock %}
+
+{% macro render_field(field, label_visible=true) -%}
+{% if field.type == 'FieldList' %}
+  {% for f in field.entries %}
+    {{ render_field(f) }}
+  {% endfor %}
+  <tr><td colspan=2 class="submit"><input type="submit" name="btn" value="Add {{field.name}}"></td></tr>
+{% elif field.type == 'FormField' %}
+  {% for f in field %}
+    {{ render_field(f) }}
+  {% endfor %}
+{% else %}
+<tr>
+  <div class="form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
+    {% if field.type != 'HiddenField' and label_visible
+          and field.type != 'CSRFTokenField' %}
+    <td>{{field.label}}</td>
+    {% endif %}
+    <td>{{ field(class_='form-control %s' % field.name, **kwargs) }}</td>
+    <td>
+    {% if field.errors %}
+      {% for e in field.errors %}
+        <span class="form-error">{{ e }}</span>
+      {% endfor %}
+    {% endif %}
+    </td>
+    </div>
+</tr>
+{% endif %}
+{%- endmacro %}

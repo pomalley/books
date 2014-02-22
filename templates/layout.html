@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+  {% block head %}
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/datepicker3.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type=text/javascript src="{{ url_for('static', filename='jquery.js') }}"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <script type=text/javascript src="{{ url_for('static', filename='js/bootstrap-datepicker.js') }}"></script>
+
+    {% assets "scss_all" %}
+      <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
+    <script type=text/javascript src="{{ url_for('static', filename='books.js') }}"></script>
+
+    <title>{% block title %}{% endblock %}</title>
+  {% endblock %}
+</head>
+<body>
+  <div class="row">
+    <aside id="sidebar" class="col-md-2">
+      <ul id="nav">
+          <li><a href={{ url_for("index") }}>Home</a></li>
+          <li><a href={{ url_for("BookView:index") }}>Books List</a></li>
+          <li><a href={{ url_for("BookView:new") }}>New Book</a></li>
+          <li><a href={{ url_for("BookView:library_list") }}>Library List</a></li>
+          <li><a href={{ url_for("BookView:bookstore_list") }}>Bookstore List</a></li>
+          {% if g.user %}
+            <li><a href={{ url_for("logout") }}>Log out</a></li>
+          {% else %}
+            <li><a href={{ url_for("login") }}>Log in</a></li>
+          {% endif %}
+      </ul>
+
+      <section class=user-info>
+        {% if g.user  %}
+          Hello, {{ g.user.name }}
+        {% else %}
+          No user logged in.
+        {% endif %}
+      </section>
+
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <section class=flash>
+        {% for message in messages %}
+          <div>{{ message }}</div>
+        {% endfor %}
+        </section>
+        {% endif %}
+      {% endwith %}
+
+    </aside>
+    <div id="content" class="col-md-10">
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+  <div id="footer">
+    {% block footer %}{% endblock %}
+  </div>
+</body>
+</html>

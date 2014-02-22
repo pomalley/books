@@ -1,0 +1,8 @@
+{# macros for rendering simple forms #}
+
+{% macro delete_form(form) -%}
+    <form action="{{ form.action }}" method="POST">
+        {{ form.hidden_tag() }}
+        <input type="submit" name="Delete" value="Delete">
+    </form>
+{%- endmacro %}

@@ -1,0 +1,100 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #EC8; }
+
+  #sidebar {
+    padding: 5px 5px 5px 15px; }
+    #sidebar ul {
+      padding: 0;
+      margin: 0; }
+      #sidebar li {
+        list-style: none; }
+        #sidebar li a {
+          margin: 3px 10px;
+          padding: 0px 10px;
+          display: block;
+          font-weight: bold;
+          text-decoration: none;
+          color: #000;
+          background: #CA5; }
+
+.user-info {
+  margin: 10px 10px;
+  padding: 5px 5px 5px 15px;
+  background: #CA5;
+  font-weight: bold;
+  color: black; }
+
+  .flash {
+    margin: 10px 10px;
+    padding: 5px 5px 5px 15px;
+    background: #ED9;
+    font-weight: bold;
+    color: navy; }
+
+    td.submit {
+      text-align: center; }
+
+      input[type=submit] {
+        width: 50%; }
+
+        .form-error {
+          color: #F00;
+          font-weight: bold; }
+
+          .table-striped tbody > tr:nth-child(odd) > td,
+          .table-striped tbody > tr:nth-child(odd) > th {
+            background-color: #CA5; }
+
+            .table-hover tbody tr.no-hover:hover td {
+              background-color: initial; }
+
+              .table-hover tbody tr:hover td {
+                background-color: #ED9; }
+
+                .checkbox-cell {
+                  text-align: center; }
+                  .checkbox-cell input {
+                    width: 100%; }
+
+.table a {
+  font-weight: bold; }
+  .table tbody > tr > th.checkbox-cell {
+    vertical-align: bottom; }
+    .table tr > td {
+      border-bottom: 1px solid #DDDDDD; }
+
+table.book-table {
+  border-collapse: collapse; }
+
+  .book-table td {
+    border: 1px solid black;
+    padding: 2px 5px; }
+
+    .checklabel {
+      text-align: right; }
+      .checklabel label {
+        width: 100%;
+        margin-bottom: 0; }
+
+.control-panel {
+  background: #ED9;
+  margin: 5px;
+  border-spacing: 5px 0px;
+  border-collapse: separate; }
+  .control-panel input {
+    margin: 0px; }
+
+.info-entry {
+  background: #CA5;
+  margin: 10px;
+  padding: 10px; }
+  .info-entry p {
+    margin: 0; }
+    .info-entry img {
+      float: left;
+      border: 1px solid black;
+      margin: 3px; }
+      .info-entry input[type=submit] {
+        width: auto; }
