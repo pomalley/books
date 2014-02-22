@@ -4,7 +4,7 @@ auth stuff for books. we use the same (literally) auth as for t2. '''
 
 import hashlib, os, base64, functools
 
-from books import app, db_auth as db, session
+from books import app, db_auth as db
 
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
