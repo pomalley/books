@@ -122,17 +122,12 @@ class Book(model.Model):
                 len(doc['google_volumes']) <= idx):
                 return self.get_info(id)
             entry = doc['google_volumes'][idx]
-            doc['authors'] = entry['authors']
-            doc['title'] = entry['title']
-            doc['identifiers'] = entry['industryIdentifiers']
-            doc['genre'] = entry['categories']
+            mine = ['authors', 'title', 'identifiers', 'genre', 'imageLinks', 'year']
+            theirs = ['authors', 'title', 'industryIdentifiers', 'categories', 'imageLinks', 'publishedDate']
+            for m, t in zip(mine, theirs):
+                if t in entry:
+                    doc[m] = entry[t]
             doc['google_volumes_idx'] = idx
-            doc['imageLinks'] = entry['imageLinks']
-            try:
-                doc['year'] = int(entry['publishedDate'][:4])
-            except ValueError:
-                pass
-
             doc.save()
             return model.redirect(doc.url_for())
         set_info.methods=['POST']
