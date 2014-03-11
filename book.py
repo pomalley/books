@@ -125,6 +125,10 @@ class Book(model.Model):
                 if t in entry:
                     doc[m] = entry[t]
             doc['google_volumes_idx'] = idx
+            try:
+                doc['year'] = int(doc['year'][:4])
+            except ValueError:
+                del doc['year']
             doc.save()
             return model.redirect(doc.url_for())
         set_info.methods=['POST']
