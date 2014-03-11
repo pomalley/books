@@ -47,6 +47,17 @@ class MonthDate(mongokit.CustomType):
         if value is not None:
             y, _, m = value.partition('-')
             return datetime.date(int(y), int(m), 15)
+            
+class Date(mongokit.CustomType):
+    mongo_type = unicode
+    python_type = datetime.date
+    def to_bson(self, value):
+        if value:
+            return unicode(value.strftime("%Y-%m-%d"))
+    def to_python(self, value):
+        if value is not None:
+            y, m, d = value.split('-')
+            return datetime.date(int(y), int(m), int(d))
 
 class MonthDateField(wtforms.DateField):
     def _value(self):
@@ -72,6 +83,7 @@ fieldMap = {
     int:                wtforms.IntegerField,
     bool:               wtforms.BooleanField,
     datetime.datetime:  wtforms.DateTimeField,
+    Date:      wtforms.DateField,
     MonthDate:          MonthDateField,
 }
 
@@ -83,6 +95,7 @@ class Model(mongokit.Document):
     # default_values = {}
     # use_dot_notation = True/False
     # etc...
+    use_dot_notation = True
     structure = {
         'date_created': datetime.datetime,
         'date_updated': datetime.datetime,

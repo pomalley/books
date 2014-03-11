@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}All the books{% endblock %}
+
+{% block content %}
+    <table class="table table-striped table-hover index-table">
+    <tr class="no-hover">
+      <th>
+        <h3>Bread history:</h3>
+      </th>
+    </tr>
+    {% for book in doclist %}
+    <tr>
+      <td>
+        <a href="{{ url_for('BreadView:get', id=book['_id']) }}">
+            {{ book }}
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+    <tr class="no-hover">
+      <td></td>
+      <td colspan="99" class="submit"><input type="submit" value="Update"></td>
+    </tr>
+    </table>
+{% endblock %}
+

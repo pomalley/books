@@ -6,6 +6,7 @@ implementation of model.Model for bread/baking tracker.
 
 '''
 
+import datetime
 import wtforms
 
 from books import connection
@@ -17,11 +18,10 @@ class Bread(model.Model):
     # rename the db to something more general at some point
     __database__ = 'books'
 
-    use_schemaless = True
+    use_schemaless = False
     view_decorators = [view_helpers.login_required]
 
-    structure = model.Model.structure
-    structure.update({
+    structure = {
         'starter_hydration_percent': int,
         'starter_mass': int,
         'sponge_white_mass': int,
@@ -35,10 +35,11 @@ class Bread(model.Model):
         'preparation_comments': unicode,
         'rating': int,
         'final_comments': unicode,
-    })
+        'date': model.Date,
+    }
+    structure.update(model.Model.structure)
 
-    default_values = model.Model.default_values
-    default_values.update({
+    default_values = {
         'starter_hydration_percent': 50,
         'starter_mass': 56,
         'sponge_white_mass': 300,
@@ -48,7 +49,8 @@ class Bread(model.Model):
         'dough_whole_wheat_mass': 0,
         'dough_water_mass': 400,
         'dough_salt_mass': 18,
-    })
+    }
+    default_values.update(model.Model.default_values)
 
     form_fields = {
         'preparation_comments': wtforms.TextAreaField('Preparation Comments'),
@@ -56,7 +58,8 @@ class Bread(model.Model):
         'final_comments': wtforms.TextAreaField('Final Comments'),
     }
 
-    field_order = ['starter_hydration_percent',
+    field_order = ['date',
+        'starter_hydration_percent',
         'starter_mass',
         'sponge_white_mass',
         'sponge_whole_wheat_mass',
@@ -71,3 +74,5 @@ class Bread(model.Model):
         'final_comments',
     ]
 
+    def __repr__(self):
+        return "<%s %r>" % (self.__class__.__name__, self['_id'])

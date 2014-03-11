@@ -32,8 +32,7 @@ class Book(model.Model):
     use_schemaless=True
     view_decorators = [view_helpers.login_required]
 
-    structure = model.Model.structure
-    structure.update({
+    structure = {
         'title': unicode,
         'authors': [unicode],
         'author_string': unicode,
@@ -51,16 +50,18 @@ class Book(model.Model):
 
         'worldcat_entries': [dict],
         'google_volumes': [dict],
-    })
+    }
+    structure.update(model.Model.structure)
+    
     required_fields = ['title', 'date_created',
                        'date_updated']
-    default_values = model.Model.default_values
-    default_values.update({
+    default_values = {
         'read': False,
         'want_to_read': True,
         'owned': False,
         'want_to_own': False,
-    })
+    }
+    default_values.update(model.Model.default_values)
 
     field_choices = {
     }
@@ -78,8 +79,6 @@ class Book(model.Model):
                       'google_volumes', 'read', 'want_to_read', 'owned',
                       'want_to_own', 'comments', 'date_read',
                       'author_string']
-
-    use_dot_notation = True
 
     @classmethod
     def views(cls):
