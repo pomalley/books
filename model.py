@@ -83,6 +83,14 @@ class Model(mongokit.Document):
     # default_values = {}
     # use_dot_notation = True/False
     # etc...
+    structure = {
+        'date_created': datetime.datetime,
+        'date_updated': datetime.datetime,
+    }
+    default_values = {
+        'date_created': datetime.datetime.utcnow,
+        'date_updated': datetime.datetime.utcnow,
+    }
     formless_fields = ['date_created', 'date_updated']
     field_choices = {}
     field_order = []

@@ -32,7 +32,8 @@ class Book(model.Model):
     use_schemaless=True
     view_decorators = [view_helpers.login_required]
 
-    structure = {
+    structure = model.Model.structure
+    structure.update({
         'title': unicode,
         'authors': [unicode],
         'author_string': unicode,
@@ -48,22 +49,18 @@ class Book(model.Model):
         'comments': unicode,
         'date_read': model.MonthDate(),
 
-        'date_created': datetime.datetime,
-        'date_updated': datetime.datetime,
-
         'worldcat_entries': [dict],
         'google_volumes': [dict],
-    }
+    })
     required_fields = ['title', 'date_created',
                        'date_updated']
-    default_values = {
+    default_values = model.Model.default_values
+    default_values.update({
         'read': False,
         'want_to_read': True,
         'owned': False,
         'want_to_own': False,
-        'date_created': datetime.datetime.utcnow,
-        'date_updated': datetime.datetime.utcnow,
-    }
+    })
 
     field_choices = {
     }

@@ -4,6 +4,7 @@ from flask import abort, g, render_template, url_for, session, flash, redirect, 
 
 from books import app
 from book import Book
+from bread import Bread
 from view_helpers import login_required
 import auth
 
@@ -51,3 +52,4 @@ def _zip(*args, **kwargs): #to not overwrite builtin zip in globals
 
 # the main routes come from the Book model
 Book.getView().register(app)
+Bread.getView().register(app)
