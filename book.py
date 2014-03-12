@@ -52,7 +52,7 @@ class Book(model.Model):
         'google_volumes': [dict],
     }
     structure.update(model.Model.structure)
-    
+
     required_fields = ['title', 'date_created',
                        'date_updated']
     default_values = {
@@ -79,6 +79,9 @@ class Book(model.Model):
                       'google_volumes', 'read', 'want_to_read', 'owned',
                       'want_to_own', 'comments', 'date_read',
                       'author_string']
+
+    def get_name(self):
+        return self['title']
 
     @classmethod
     def views(cls):

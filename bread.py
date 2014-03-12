@@ -19,6 +19,7 @@ class Bread(model.Model):
     __database__ = 'books'
 
     use_schemaless = False
+    #use_schemaless = True
     view_decorators = [view_helpers.login_required]
 
     structure = {
@@ -35,16 +36,16 @@ class Bread(model.Model):
         'preparation_comments': unicode,
         'rating': int,
         'final_comments': unicode,
-        'date': model.Date,
+        'date': model.Date(),
     }
     structure.update(model.Model.structure)
 
     default_values = {
         'starter_hydration_percent': 50,
         'starter_mass': 56,
-        'sponge_white_mass': 300,
+        'sponge_white_mass': 227,
         'sponge_whole_wheat_mass': 0,
-        'sponge_water_mass': 200,
+        'sponge_water_mass': 142,
         'dough_white_mass': 567,
         'dough_whole_wheat_mass': 0,
         'dough_water_mass': 400,
@@ -53,10 +54,15 @@ class Bread(model.Model):
     default_values.update(model.Model.default_values)
 
     form_fields = {
-        'preparation_comments': wtforms.TextAreaField('Preparation Comments'),
-        'other_ingredients': wtforms.TextAreaField('Other Ingredients'),
-        'final_comments': wtforms.TextAreaField('Final Comments'),
+        'preparation_comments': [wtforms.TextAreaField, 'Preparation Comments'],
+        'other_ingredients': [wtforms.TextAreaField, 'Other Ingredients'],
+        'final_comments': [wtforms.TextAreaField, 'Final Comments'],
     }
+
+    form_validators = {
+        'rating': [wtforms.validators.NumberRange(min=0, max=10)],
+    }
+    form_validators.update(model.Model.form_validators)
 
     field_order = ['date',
         'starter_hydration_percent',
@@ -76,3 +82,6 @@ class Bread(model.Model):
 
     def __repr__(self):
         return "<%s %r>" % (self.__class__.__name__, self['_id'])
+
+    def get_name(self):
+        return "Bread: %s" % self['date']

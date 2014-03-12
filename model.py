@@ -47,7 +47,7 @@ class MonthDate(mongokit.CustomType):
         if value is not None:
             y, _, m = value.partition('-')
             return datetime.date(int(y), int(m), 15)
-            
+
 class Date(mongokit.CustomType):
     mongo_type = unicode
     python_type = datetime.date
@@ -83,7 +83,7 @@ fieldMap = {
     int:                wtforms.IntegerField,
     bool:               wtforms.BooleanField,
     datetime.datetime:  wtforms.DateTimeField,
-    Date:      wtforms.DateField,
+    Date:               wtforms.DateField,
     MonthDate:          MonthDateField,
 }
 
@@ -109,11 +109,15 @@ class Model(mongokit.Document):
     field_order = []
     default_on_save = ['date_updated']
     form_fields = {}
+    form_validators = {}
 
     view_decorators = []
 
     def __repr__(self):
-        return "<%s %r>" % (self.__class__.__name__, self.title)
+        return "<%s %r>" % (self.__class__.__name__, self.get_name())
+
+    def get_name(self):
+        return str(self['_id'])
 
     @classmethod
     def find_or_404(cls, id):
@@ -233,7 +237,7 @@ class Model(mongokit.Document):
 
     def _getField(self, name, field_type, value=None):
         if name in self.form_fields:
-            return self.form_fields[name]
+            return self.form_fields[name][0](*self.form_fields[name][1:])
         label = self.label_for(name)
         if isinstance(field_type, list):
             subfield = self._getField(name, field_type[0])
@@ -258,6 +262,8 @@ class Model(mongokit.Document):
                 field_vals.append(validators.DataRequired())
             else:
                 field_vals.append(validators.Optional())
+            if name in self.form_validators:
+                field_vals.extend(self.form_validators[name])
             return field_type(label, validators=field_vals, **kwargs)
 
     def getForm(self, return_class=False, field_list=None):
