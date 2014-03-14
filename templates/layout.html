@@ -32,10 +32,14 @@
     <aside id="sidebar" class="col-md-2">
       <ul id="nav">
           <li><a href={{ url_for("index") }}>Home</a></li>
+          <li><hr></li>
           <li><a href={{ url_for("BookView:index") }}>Books List</a></li>
           <li><a href={{ url_for("BookView:new") }}>New Book</a></li>
           <li><a href={{ url_for("BookView:library_list") }}>Library List</a></li>
           <li><a href={{ url_for("BookView:bookstore_list") }}>Bookstore List</a></li>
+          <li><hr></li>
+          <li><a href={{ url_for("BreadView:index") }}>Bread List</a></li>
+          <li><a href={{ url_for("BreadView:new") }}>New Bread</a></li>
           {% if g.user %}
             <li><a href={{ url_for("logout") }}>Log out</a></li>
           {% else %}
