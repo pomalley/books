@@ -1,4 +1,6 @@
 # ignore the compiled assets
 static/.webassets-cache
 
+private.py
+
 *.pyc
