@@ -13,7 +13,6 @@ app.secret_key = private.secret_key
 config.DevelopmentConfig.SQLALCHEMY_DATABASE_URI = private.dev_sql_database
 config.ProductionConfig.SQLALCHEMY_DATABASE_URI = private.prod_sql_database
 
-
 env = os.environ['FLASK_BOOKS_ENV'].lower()
 if env == 'dev' or env == 'development':
     app.config.from_object(config.DevelopmentConfig)
