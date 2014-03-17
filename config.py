@@ -13,9 +13,9 @@ class Config(object):
 class DevelopmentConfig(Config):
     T2_URL = 'http://localhost:3000/'
     SERVER_NAME = 'localhost:5000'
-    SQLALCHEMY_DATABASE_URI = "postgresql://t2:rubypassword@localhost/t2_development"
+    #SQLALCHEMY_DATABASE_URI =
 
 class ProductionConfig(Config):
     T2_URL = '/t2/'
     SERVER_NAME = 'tasker.physics.ucsb.edu'
-    SQLALCHEMY_DATABASE_URI = "postgresql://t2:rubypassword@localhost/t2_production"
+    #SQLALCHEMY_DATABASE_URI =
