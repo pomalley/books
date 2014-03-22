@@ -243,6 +243,9 @@ class Book(model.Model):
                 names.append('%s, %s' % (last, first))
         return unicode(';'.join(names))
 
+    def get_name(self):
+        return self['title']
+
     def save(self, *args, **kwargs):
         # update the author string
         self['author_string'] = self._make_author_string()

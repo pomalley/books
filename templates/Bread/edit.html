@@ -1,14 +1,9 @@
 {% extends "layout.html" %}
 
-{% block title %}{{ doc['title'] }}{% endblock %}
+{% block title %}{{ doc.get_name() }}{% endblock %}
 
 {% block content %}
-    <h3>{% if doc['title'] %}
-            {{ doc['title'] }}
-        {% else %}
-            [Untitled]
-        {% endif %}
-    </h3>
+    <h3>{{ doc.get_name() }}</h3>
     <form method="POST" action="{{ action }}">
         <table>
         <tr><td colspan=2 class="submit">

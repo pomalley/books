@@ -37,10 +37,12 @@ class Bread(model.Model):
         'rating': int,
         'final_comments': unicode,
         'date': model.Date(),
+        'name': unicode,
     }
     structure.update(model.Model.structure)
 
     default_values = {
+        'date': datetime.date.today,
         'starter_hydration_percent': 50,
         'starter_mass': 56,
         'sponge_white_mass': 227,
@@ -59,12 +61,15 @@ class Bread(model.Model):
         'final_comments': [wtforms.TextAreaField, 'Final Comments'],
     }
 
+    required_fields = ['date']
+    required_fields.extend(model.Model.required_fields)
+
     form_validators = {
         'rating': [wtforms.validators.NumberRange(min=0, max=10)],
     }
     form_validators.update(model.Model.form_validators)
 
-    field_order = ['date',
+    field_order = ['name', 'date',
         'starter_hydration_percent',
         'starter_mass',
         'sponge_white_mass',
@@ -84,4 +89,8 @@ class Bread(model.Model):
         return "<%s %r>" % (self.__class__.__name__, self['_id'])
 
     def get_name(self):
-        return "Bread: %s" % self['date']
+        if 'name' in self and self['name']:
+            s = self['name']
+        else:
+            s = 'Bread'
+        return "%s: %s" % (s, self['date'])

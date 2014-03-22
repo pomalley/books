@@ -116,6 +116,9 @@ class Model(mongokit.Document):
     def __repr__(self):
         return "<%s %r>" % (self.__class__.__name__, self.get_name())
 
+    def __str__(self):
+        return self.get_name()
+
     def get_name(self):
         return str(self['_id'])
 
@@ -189,7 +192,7 @@ class Model(mongokit.Document):
             def delete(self, id):
                 doc = cls.find_or_404(id)
                 doc.delete()
-                flash("Deleted: %s" % doc['title'])
+                flash("Deleted: %s" % doc.get_name())
                 return redirect(cls.class_url())
 
             @route("/delete/<id>", methods=["POST"])
@@ -301,7 +304,7 @@ class Model(mongokit.Document):
         changed=False
         for k, v in form.data.items():
             v = prune(v)
-            if k in self.structure and self[k] != v:
+            if k in self.structure and (k not in self or self[k] != v):
                 self[k] = v
                 changed = True
         return changed
