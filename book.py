@@ -7,7 +7,7 @@ The book model & view.
 import datetime, requests, feedparser, simplejson
 import wtforms, wtforms.validators as validators
 from flask import url_for, redirect, flash
-from books import connection
+from . import connection
 import model, view_helpers
 
 worldcat_url = "http://worldcat.org/webservices/catalog/search/opensearch"

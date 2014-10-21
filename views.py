@@ -2,7 +2,7 @@ import urllib
 
 from flask import abort, g, render_template, url_for, session, flash, redirect, request, make_response
 
-from books import app
+from . import app
 from book import Book
 from bread import Bread
 from view_helpers import login_required

@@ -27,7 +27,7 @@ from flask_wtf import Form
 import wtforms, wtforms.validators as validators
 
 # TODO: figure out proper way to get connection
-from books import connection
+from . import connection
 
 def prune(l):
     if isinstance(l, list):

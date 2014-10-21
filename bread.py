@@ -9,7 +9,7 @@ implementation of model.Model for bread/baking tracker.
 import datetime
 import wtforms
 
-from books import connection
+from . import connection
 import model, view_helpers
 
 @connection.register
